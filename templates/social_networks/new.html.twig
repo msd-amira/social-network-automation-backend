@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New SocialNetworks{% endblock %}
+
+{% block body %}
+    <h1>Create new SocialNetworks</h1>
+
+    {{ include('social_networks/_form.html.twig') }}
+
+    <a href="{{ path('social_networks_index') }}">back to list</a>
+{% endblock %}

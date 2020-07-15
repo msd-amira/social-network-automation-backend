@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit UserHasSn{% endblock %}
+
+{% block body %}
+    <h1>Edit UserHasSn</h1>
+
+    {{ include('user_has_sn/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('user_has_sn_index') }}">back to list</a>
+
+    {{ include('user_has_sn/_delete_form.html.twig') }}
+{% endblock %}

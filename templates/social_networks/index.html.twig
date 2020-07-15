@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SocialNetworks index{% endblock %}
+
+{% block body %}
+    <h1>SocialNetworks index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Label</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for social_network in social_networks %}
+            <tr>
+                <td>{{ social_network.id }}</td>
+                <td>{{ social_network.label }}</td>
+                <td>
+                    <a href="{{ path('social_networks_show', {'id': social_network.id}) }}">show</a>
+                    <a href="{{ path('social_networks_edit', {'id': social_network.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('social_networks_new') }}">Create new</a>
+{% endblock %}

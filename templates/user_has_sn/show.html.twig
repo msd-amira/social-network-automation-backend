@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UserHasSn{% endblock %}
+
+{% block body %}
+    <h1>UserHasSn</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IduserHasSn</th>
+                <td>{{ user_has_sn.iduserHasSn }}</td>
+            </tr>
+            <tr>
+                <th>AccessToken</th>
+                <td>{{ user_has_sn.accessToken }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ user_has_sn.name }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ user_has_sn.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>{{ user_has_sn.photo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_has_sn_index') }}">back to list</a>
+
+    <a href="{{ path('user_has_sn_edit', {'iduserHasSn': user_has_sn.iduserHasSn}) }}">edit</a>
+
+    {{ include('user_has_sn/_delete_form.html.twig') }}
+{% endblock %}
