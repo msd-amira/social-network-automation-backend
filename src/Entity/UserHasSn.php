@@ -6,7 +6,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * UserHasSn
  * @ApiResource()
  * @ORM\Table(name="user_has_sn", indexes={@ORM\Index(name="fk_user_has_SN_social_networks1_idx", columns={"social_networks_id_"}), @ORM\Index(name="fk_user_has_SN_user1_idx", columns={"user_id_"})})
  * @ORM\Entity

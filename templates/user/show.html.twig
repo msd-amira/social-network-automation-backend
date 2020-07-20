@@ -12,28 +12,32 @@
                 <td>{{ user.id }}</td>
             </tr>
             <tr>
-                <th>Username</th>
-                <td>{{ user.username }}</td>
+                <th>Firstname</th>
+                <td>{{ user.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ user.lastname }}</td>
             </tr>
             <tr>
                 <th>Email</th>
                 <td>{{ user.email }}</td>
             </tr>
             <tr>
-                <th>Namecompany</th>
-                <td>{{ user.namecompany }}</td>
-            </tr>
-            <tr>
                 <th>Password</th>
                 <td>{{ user.password }}</td>
+            </tr>
+            <tr>
+                <th>Namecompany</th>
+                <td>{{ user.namecompany }}</td>
             </tr>
             <tr>
                 <th>Phonenumber</th>
                 <td>{{ user.phonenumber }}</td>
             </tr>
             <tr>
-                <th>CreateTime</th>
-                <td>{{ user.createTime ? user.createTime|date('Y-m-d H:i:s') : '' }}</td>
+                <th>IsVerified</th>
+                <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
             </tr>
         </tbody>
     </table>

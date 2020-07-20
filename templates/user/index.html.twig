@@ -9,12 +9,13 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Username</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
                 <th>Email</th>
-                <th>Namecompany</th>
                 <th>Password</th>
+                <th>Namecompany</th>
                 <th>Phonenumber</th>
-                <th>CreateTime</th>
+                <th>IsVerified</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,12 +23,13 @@
         {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
-                <td>{{ user.username }}</td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.namecompany }}</td>
                 <td>{{ user.password }}</td>
+                <td>{{ user.namecompany }}</td>
                 <td>{{ user.phonenumber }}</td>
-                <td>{{ user.createTime ? user.createTime|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
@@ -35,7 +37,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="9">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

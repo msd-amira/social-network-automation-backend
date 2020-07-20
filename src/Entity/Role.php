@@ -6,8 +6,17 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Role
- * @ApiResource()
+ * @ApiResource(
+ * collectionOperations={
+ *      "get",
+ *      "post",
+ *      "getByLabel"={
+ *          "method" = "GET",
+ *          "path"="/roles/label/{label}",
+ *          "controller"=App\Controller\API\GetRoleByLabel::class,
+ *      },
+ * },
+ * )
  * @ORM\Table(name="role", uniqueConstraints={@ORM\UniqueConstraint(name="idrole_UNIQUE", columns={"idrole"})})
  * @ORM\Entity
  */

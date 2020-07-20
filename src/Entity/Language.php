@@ -6,7 +6,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Language
  * @ApiResource()
  * @ORM\Table(name="language", uniqueConstraints={@ORM\UniqueConstraint(name="id__UNIQUE", columns={"id_"})})
  * @ORM\Entity

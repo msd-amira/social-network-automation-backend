@@ -10,8 +10,24 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ApiResource()
+/** 
+ * @ApiResource(
+ * collectionOperations={
+ *      "get",
+ *      "post",
+ *      "getByEmail"={
+ *          "method" = "GET",
+ *          "path"="/users/email/{email}",
+ *          "controller"=App\Controller\API\GetUserEmail::class,
+ *      },
+ * },
+ * itemOperations={
+ *      "get"={},
+ *      "put"={},
+ *      "delete"={},
+ 
+ * }
+ * )
  * @ORM\Table(name="user", indexes={@ORM\Index(name="fk_users_role1_idx", columns={"role"}), @ORM\Index(name="fk_user_language1_idx", columns={"languageId"})})
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
@@ -60,12 +76,6 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @Groups("user:write")
-     * @SerializedName("password")
-     */
-    private $plainPassword;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="nameCompany", type="string", length=45, nullable=false)
@@ -93,6 +103,11 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVisible;
 
     public function getId(): ?int
     {
@@ -188,14 +203,14 @@ class User implements UserInterface
     {
         $role = $this->role;
         // guarantee every user at least has ROLE_USER
-        //$roles[] = 'ROLE_USER';
+        //$role[] = 'ROLE_USER';
 
         return $role;
     }
 
-    public function setRoles(?Role $roles): self
+    public function setRole(?Role $role): self
     {
-        $this->roles = $roles;
+        $this->role = $role;
 
         return $this;
     }
@@ -210,20 +225,11 @@ class User implements UserInterface
 
     public function setPassword(string $password): self
     {
-        $this->password = md5($password);
+        $this->password = password_hash($password, PASSWORD_BCRYPT);
 
         return $this;
     }
     
-    public function getPlainPassword(): ?string
-    {
-        return $this->plainPassword;
-    }
-    public function setPlainPassword(string $plainPassword): self
-    {
-        $this->plainPassword = $plainPassword;
-        return $this;
-    }
 
     /**
      * @see UserInterface
@@ -239,7 +245,7 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        $this->plainPassword = null;
+        //$this->plainPassword = null;
     }
 
     public function isVerified(): bool
@@ -250,6 +256,18 @@ class User implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getIsVisible(): ?bool
+    {
+        return $this->isVisible;
+    }
+
+    public function setIsVisible(bool $isVisible): self
+    {
+        $this->isVisible = $isVisible;
 
         return $this;
     }

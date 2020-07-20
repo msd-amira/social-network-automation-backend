@@ -6,7 +6,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * SocialNetworks
  * @ApiResource()
  * @ORM\Table(name="social_networks", uniqueConstraints={@ORM\UniqueConstraint(name="idsocial_networks_UNIQUE", columns={"id_"})})
  * @ORM\Entity
