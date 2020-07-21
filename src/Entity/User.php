@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "post",
  *      "getByEmail"={
  *          "method" = "GET",
- *          "path"="/users/email/{email}",
+ *          "path"="/users/email/{email}/{pwd}",
  *          "controller"=App\Controller\API\GetUserEmail::class,
  *      },
  * },
@@ -107,7 +107,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isVisible;
+    private $isVisible; 
 
     public function getId(): ?int
     {
