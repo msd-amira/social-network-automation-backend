@@ -271,4 +271,14 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function getRole(): ?Role
+    {
+        return $this->role;
+    }
 }

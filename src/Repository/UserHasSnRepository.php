@@ -6,28 +6,29 @@ namespace App\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-use App\Entity\Role;
+use App\Entity\UserHasSN;
 
-class RoleRepository extends ServiceEntityRepository
+class UserHasSnRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Role::class);
+        parent::__construct($registry, UserHasSN::class);
     }
 
-    public function findOneByLabel($value): ?Role
+    public function findByuserId($value)
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.label = :val')
+            ->andWhere('u.userId = :val')
             ->setParameter('val', $value)
+            ->orderBy('u.iduserHasSn', 'ASC')
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult()
         ;
     }
 
 
     // /**
-    //  * @return Role[] Returns an array of Role objects
+    //  * @return UserHasSN[] Returns an array of UserHasSN objects
     //  */
     /*
     public function findByExampleField($value)
@@ -44,7 +45,7 @@ class RoleRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Role
+    public function findOneBySomeField($value): ?UserHasSN
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.exampleField = :val')

@@ -3,12 +3,32 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Repository\UserHasSnRepository;
+
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ApiResource()
- * @ORM\Table(name="user_has_sn", indexes={@ORM\Index(name="fk_user_has_SN_social_networks1_idx", columns={"social_networks_id_"}), @ORM\Index(name="fk_user_has_SN_user1_idx", columns={"user_id_"})})
+ * @ApiResource(
+ * collectionOperations={
+ *      "get",
+ *      "post",
+ *      "getByIdUser"={
+ *          "method" = "GET",
+ *          "path"="/user_has_sns/{userId}",
+ *          "controller"=App\Controller\API\GetUserSN::class,
+ *      },
+ * },
+ * )
+ * @ORM\Table(name="user_has_sn", indexes={
+ * @ORM\Index(name="fk_user_has_SN_social_networks1_idx", columns={"social_networks_id_"}), 
+ * @ORM\Index(name="fk_user_has_SN_user1_idx", columns={"user_id_"})
+ * })
  * @ORM\Entity
+ * @UniqueEntity(
+ *      fields={"userSNId","socialNetworksId","userId"},
+ *      message="This account is already exist ."
+ * )
  */
 class UserHasSn
 {
@@ -24,28 +44,35 @@ class UserHasSn
     /**
      * @var string
      *
-     * @ORM\Column(name="access_token", type="string", length=45, nullable=false)
+     * @ORM\Column(name="userSNId", type="string", nullable=false)
      */
-    private $accessToken;
+    private $userSNId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="longAccesstoken", type="string",  nullable=false)
+     */
+    private $longAccesstoken;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="labelNetwork", type="string",  nullable=false)
+     */
+    private $labelNetwork;
+
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="pages", type="text",  nullable=false)
+     */
+    private $pages;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="name", type="string", length=45, nullable=true)
-     */
-    private $name;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="lastname", type="string", length=45, nullable=true)
-     */
-    private $lastname;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="photo", type="string", length=255, nullable=true)
+     * @ORM\Column(name="photo", type="string", nullable=true)
      */
     private $photo;
 
@@ -54,7 +81,7 @@ class UserHasSn
      *
      * @ORM\ManyToOne(targetEntity="SocialNetworks")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="social_networks_id_", referencedColumnName="id_")
+     *   @ORM\JoinColumn(name="social_networks_id_", referencedColumnName="id_", nullable=false)
      * })
      */
     private $socialNetworksId;
@@ -64,7 +91,7 @@ class UserHasSn
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id_", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="user_id_", referencedColumnName="id", nullable=false)
      * })
      */
     private $userId;
@@ -74,38 +101,38 @@ class UserHasSn
         return $this->iduserHasSn;
     }
 
-    public function getAccessToken(): ?string
+    public function getLongAccesstoken(): ?string
     {
-        return $this->accessToken;
+        return $this->longAccesstoken;
     }
 
-    public function setAccessToken(string $accessToken): self
+    public function setLongAccesstoken(?string $longAccesstoken): self
     {
-        $this->accessToken = $accessToken;
+        $this->longAccesstoken = $longAccesstoken;
 
         return $this;
     }
 
-    public function getName(): ?string
+    public function getLabelNetwork(): ?string
     {
-        return $this->name;
+        return $this->labelNetwork;
     }
 
-    public function setName(?string $name): self
+    public function setLabelNetwork(?string $labelNetwork): self
     {
-        $this->name = $name;
+        $this->labelNetwork = $labelNetwork;
 
         return $this;
     }
 
-    public function getLastname(): ?string
+    public function getPages(): ?string
     {
-        return $this->lastname;
+        return $this->pages;
     }
 
-    public function setLastname(?string $lastname): self
+    public function setPages(?string $pages): self
     {
-        $this->lastname = $lastname;
+        $this->pages = $pages;
 
         return $this;
     }
@@ -142,6 +169,18 @@ class UserHasSn
     public function setUserId(?User $userId): self
     {
         $this->userId = $userId;
+
+        return $this;
+    }
+
+    public function getUserSNId(): ?string
+    {
+        return $this->userSNId;
+    }
+
+    public function setUserSNId(string $userSNId): self
+    {
+        $this->userSNId = $userSNId;
 
         return $this;
     }
