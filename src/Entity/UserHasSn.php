@@ -22,7 +22,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * )
  * @ORM\Table(name="user_has_sn", indexes={
  * @ORM\Index(name="fk_user_has_SN_social_networks1_idx", columns={"social_networks_id_"}), 
- * @ORM\Index(name="fk_user_has_SN_user1_idx", columns={"user_id_"})
+ * @ORM\Index(name="fk_user_has_SN_user1", columns={"user_id_"})
  * })
  * @ORM\Entity
  * @UniqueEntity(
@@ -51,7 +51,7 @@ class UserHasSn
     /**
      * @var string
      *
-     * @ORM\Column(name="longAccesstoken", type="string",  nullable=false)
+     * @ORM\Column(name="longAccesstoken", type="text",  nullable=false)
      */
     private $longAccesstoken;
 
@@ -65,7 +65,7 @@ class UserHasSn
     /**
      * @var text
      *
-     * @ORM\Column(name="pages", type="text",  nullable=false)
+     * @ORM\Column(name="pages", type="text")
      */
     private $pages;
 

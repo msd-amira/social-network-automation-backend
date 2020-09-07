@@ -56,6 +56,13 @@ class User implements UserInterface
     private $lastname;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="photo", type="string")
+     */
+    private $photo;
+
+    /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
@@ -253,6 +260,11 @@ class User implements UserInterface
         return $this->isVerified;
     }
 
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
@@ -272,11 +284,17 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getIsVerified(): ?bool
+    public function setphoto(bool $photo): self
     {
-        return $this->isVerified;
+        $this->photo = $photo;
+
+        return $this;
     }
 
+    public function getphoto(): ?bool
+    {
+        return $this->photo;
+    }
     public function getRole(): ?Role
     {
         return $this->role;

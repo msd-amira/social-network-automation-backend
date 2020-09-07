@@ -1,0 +1,53 @@
+-- Doctrine Migration File Generated on 2020-09-05 15:05:18
+
+-- Version 20200713074950
+ALTER TABLE user_has_sn DROP FOREIGN KEY fk_user_has_SN_user1;
+CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, role INT DEFAULT NULL, firstname VARCHAR(20) NOT NULL, lastname VARCHAR(20) NOT NULL, email VARCHAR(180) NOT NULL, password VARCHAR(255) NOT NULL, nameCompany VARCHAR(45) NOT NULL, phoneNumber INT NOT NULL, languageId INT DEFAULT NULL, UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), INDEX fk_users_role1_idx (role), INDEX fk_user_language1_idx (languageId), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;
+ALTER TABLE user ADD CONSTRAINT FK_8D93D64957698A6A FOREIGN KEY (role) REFERENCES role (idrole);
+ALTER TABLE user ADD CONSTRAINT FK_8D93D649940D8C7E FOREIGN KEY (languageId) REFERENCES language (id_);
+DROP TABLE user1;
+ALTER TABLE user_has_sn ADD CONSTRAINT FK_241769C1A914AAF0 FOREIGN KEY (user_id_) REFERENCES user (id);
+INSERT INTO migration_versions (version, executed_at) VALUES ('20200713074950', CURRENT_TIMESTAMP);
+
+-- Version 20200713085142
+ALTER TABLE user ADD is_verified TINYINT(1) NOT NULL;
+INSERT INTO migration_versions (version, executed_at) VALUES ('20200713085142', CURRENT_TIMESTAMP);
+
+-- Version 20200720075823
+ALTER TABLE user CHANGE visible is_visible TINYINT(1) NOT NULL;
+INSERT INTO migration_versions (version, executed_at) VALUES ('20200720075823', CURRENT_TIMESTAMP);
+
+-- Version 20200720080231
+CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, role INT DEFAULT NULL, firstname VARCHAR(20) NOT NULL, lastname VARCHAR(20) NOT NULL, email VARCHAR(180) NOT NULL, password VARCHAR(255) NOT NULL, nameCompany VARCHAR(45) NOT NULL, phoneNumber INT NOT NULL, is_verified TINYINT(1) NOT NULL, is_visible TINYINT(1) NOT NULL, languageId INT DEFAULT NULL, UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), INDEX fk_users_role1_idx (role), INDEX fk_user_language1_idx (languageId), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;
+CREATE TABLE user_has_sn (social_networks_id_ INT DEFAULT NULL, user_id_ INT DEFAULT NULL, iduser_has_SN INT AUTO_INCREMENT NOT NULL, access_token VARCHAR(45) NOT NULL, name VARCHAR(45) DEFAULT NULL, lastname VARCHAR(45) DEFAULT NULL, photo VARCHAR(255) DEFAULT NULL, INDEX fk_user_has_SN_social_networks1_idx (social_networks_id_), INDEX fk_user_has_SN_user1_idx (user_id_), PRIMARY KEY(iduser_has_SN)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB;
+ALTER TABLE user ADD CONSTRAINT FK_8D93D64957698A6A FOREIGN KEY (role) REFERENCES role (idrole) ON DELETE CASCADE;
+ALTER TABLE user ADD CONSTRAINT FK_8D93D649940D8C7E FOREIGN KEY (languageId) REFERENCES language (id_) ON DELETE CASCADE;
+ALTER TABLE user_has_sn ADD CONSTRAINT FK_241769C1ACA67ACC FOREIGN KEY (social_networks_id_) REFERENCES social_networks (id_);
+ALTER TABLE user_has_sn ADD CONSTRAINT FK_241769C1A914AAF0 FOREIGN KEY (user_id_) REFERENCES user (id);
+INSERT INTO migration_versions (version, executed_at) VALUES ('20200720080231', CURRENT_TIMESTAMP);
+
+-- Version 20200810131412
+DROP INDEX uniqueKey ON user_has_sn;
+ALTER TABLE user_has_sn ADD longAccesstoken VARCHAR(255) NOT NULL, ADD pages VARCHAR(255) NOT NULL, DROP name, DROP lastname, CHANGE snid userSNId VARCHAR(255) NOT NULL;
+INSERT INTO migration_versions (version, executed_at) VALUES ('20200810131412', CURRENT_TIMESTAMP);
+
+-- Version 20200811070633
+ALTER TABLE user_has_sn ADD labelNetwork VARCHAR(255) NOT NULL;
+INSERT INTO migration_versions (version, executed_at) VALUES ('20200811070633', CURRENT_TIMESTAMP);
+
+-- Version 20200905125057
+ALTER TABLE user ADD photo VARCHAR(255) NOT NULL;
+ALTER TABLE user_has_sn CHANGE longAccesstoken longAccesstoken VARCHAR(255) NOT NULL;
+INSERT INTO migration_versions (version, executed_at) VALUES ('20200905125057', CURRENT_TIMESTAMP);
+
+-- Version 20200905125326
+ALTER TABLE user ADD photo VARCHAR(255) NOT NULL;
+INSERT INTO migration_versions (version, executed_at) VALUES ('20200905125326', CURRENT_TIMESTAMP);
+
+-- Version 20200905125636
+ALTER TABLE user ADD photo VARCHAR(255) NOT NULL;
+INSERT INTO migration_versions (version, executed_at) VALUES ('20200905125636', CURRENT_TIMESTAMP);
+
+-- Version 20200905130427
+ALTER TABLE user ADD photo VARCHAR(255) NOT NULL;
+INSERT INTO migration_versions (version, executed_at) VALUES ('20200905130427', CURRENT_TIMESTAMP);
